@@ -1,0 +1,5 @@
+*.gravelpkg
+*.pyc
+/api_config.py
+/api_secrets.txt
+/example.pem

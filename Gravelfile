@@ -1,0 +1,4 @@
+name: gravel-api
+requires: gravel-common
+
+preinstall: ./setup.sh
