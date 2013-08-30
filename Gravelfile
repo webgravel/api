@@ -2,3 +2,5 @@ name: gravel-api
 requires: gravel-common
 
 preinstall: ./setup.sh
+
+start: env PYTHONPATH=/gravel/system/res/apiconfig python rpcserver.py

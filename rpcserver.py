@@ -13,7 +13,7 @@ import api_config
 
 from api_db import PermissionDenied
 
-secrets_file = 'api_secrets.txt'
+secrets_file = getattr(api_config, 'SECRETS_FILE', 'api_secrets.txt')
 
 assert os.stat(secrets_file).st_mode & 0o044 == 0
 secrets = dict( line.strip().split('=', 1)
@@ -21,8 +21,6 @@ secrets = dict( line.strip().split('=', 1)
                 if line.strip() )
 
 class Handler(gravelrpc.RPCHandler):
-    key = api_config.KEY
-
     def _preprocess_args(self, *args, **kwargs):
         try:
             self.client_id = secrets[kwargs['auth']]
@@ -66,4 +64,7 @@ def master_call(args, **kwargs):
     return cmd_util.generic_call(api_config.MASTER_PREFIX + args, **kwargs)
 
 if __name__ == '__main__':
-    Handler.main(('localhost', 4443), gravelrpc.ThreadingSSLServer)
+    class Server(gravelrpc.ThreadingSSLServer):
+        key = api_config.KEY
+
+    Handler.main(('localhost', 4443), Server)
