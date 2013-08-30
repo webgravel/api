@@ -54,6 +54,9 @@ class Handler(gravelrpc.RPCHandler):
     def method_set_custom(self, uid, name, data):
         api_db.verify_owner('user', uid, self.client_id)
 
+        if name not in api_config.ALLOW_CUSTOMS[self.client_id]:
+            raise PermissionDenied('editing %r not allowed' % name)
+
         master_call(['user', 'custom', '--set', '--', '%d' % uid, name],
                     func=cmd_util.call_with_stdin,
                     stdin_data=json.dumps(data))
