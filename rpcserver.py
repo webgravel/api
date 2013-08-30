@@ -41,6 +41,7 @@ class Handler(gravelrpc.RPCHandler):
         master_call(['storage', 'add', 'u%d' % uid, 'file', 'uid=%d' % uid])
 
         api_db.set_owner('user', uid, self.client_id)
+        api_db.set_owner('storage', 'u%d' % uid, self.client_id)
 
         return uid
 
