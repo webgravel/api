@@ -43,6 +43,12 @@ class Handler(gravelrpc.RPCHandler):
 
         return uid
 
+    def method_set_user_host(self, uid, host):
+        api_db.verify_owner('user', uid, self.client_id)
+
+        master_call(['storage', 'setactive', 'u%d' % uid, '--', host])
+        master_call(['user', 'sethost', '%d' % uid, '--', host])
+
     def method_get_custom(self, uid, name):
         api_db.verify_owner('user', uid, self.client_id)
 
