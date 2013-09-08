@@ -1,10 +1,10 @@
 Gravel Master API
-----------------
+===================
 
 This package exposes simple interface for use in client applications.
 
 Installation
-===================
+------------
 
 ```
 gravelpkg install gravel-api
