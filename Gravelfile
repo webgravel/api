@@ -3,4 +3,4 @@ requires: gravel-common
 
 preinstall: ./setup.sh
 
-start: env PYTHONPATH=/gravel/system/res/apiconfig python rpcserver.py
+start: env PYTHONPATH=/gravel/system/apiconfig python rpcserver.py
